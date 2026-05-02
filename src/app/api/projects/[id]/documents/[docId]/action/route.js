@@ -65,9 +65,9 @@ export const PATCH = withAuth(async function (req, { params }) {
     await project.save();
 
     // Notify the document uploader of the decision
-    const uploaderId = document.uploadedBy?.user;
-    if (uploaderId) {
-      const uploader = await User.findById(uploaderId).select("name email");
+    const uploaderUserId = document.uploadedBy?.user;
+    if (uploaderUserId) {
+      const uploader = await User.findById(uploaderUserId).select("name email");
       if (uploader?.email) {
         sendEmail({
           to: uploader.email,
